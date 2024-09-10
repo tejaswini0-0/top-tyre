@@ -9,17 +9,44 @@ import {
   TextInput,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import logo from './assets/img.png';
 import { useNavigation } from '@react-navigation/native';
+
+const auth = getAuth();
 
 export default function Register() {
   const navigation = useNavigation();
   const [form, setForm] = useState({
     name: '',
-    phone: '',
     email: '',
     password: '',
   });
+
+  async function signUp() {
+    if (form.email === '' || form.password === '') {
+      setForm({
+        ...form,
+        error: 'Email and password are mandatory.'
+      })
+      return;
+    }
+  
+    try {
+      await createUserWithEmailAndPassword(auth, form.email, form.password);
+      navigation.navigate('Welcome');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Welcome' }],
+      });
+    } catch (error) {
+      setForm({
+        ...form,
+        error: error.message,
+      })
+    }
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#3d3d3d' }}>
@@ -47,23 +74,10 @@ export default function Register() {
                 autoCorrect={false}
                 clearButtonMode="while-editing"
                 onChangeText={name => setForm({ ...form, name })}
-                placeholder="John Doe"
+                placeholder="LitSoc"
                 placeholderTextColor="#6b7280"
                 style={styles.inputControl}
                 value={form.name} />
-            </View>
-            <View style={styles.input}>
-              <Text style={styles.inputLabel}>Phone Number</Text>
-              <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                clearButtonMode="while-editing"
-                keyboardType="phone-pad"
-                onChangeText={phone => setForm({ ...form, phone })}
-                placeholder="+1 123 456 7890"
-                placeholderTextColor="#6b7280"
-                style={styles.inputControl}
-                value={form.phone} />
             </View>
             <View style={styles.input}>
               <Text style={styles.inputLabel}>Email address</Text>
@@ -93,7 +107,7 @@ export default function Register() {
             <View style={styles.formAction}>
               <TouchableOpacity
                 onPress={() => {
-                  // handle registration logic
+                  signUp()
                 }}>
                 <View style={styles.btn}>
                   <Text style={styles.btnText}>Register</Text>

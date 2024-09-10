@@ -11,6 +11,10 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import logo from './assets/img.png';
 import { useNavigation } from '@react-navigation/native';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+
+const auth = getAuth();
+
 
 export default function Login() {
   const navigation = useNavigation();
@@ -18,6 +22,30 @@ export default function Login() {
     email: '',
     password: '',
   });
+
+  async function signIn() {
+    if (form.email === '' || form.password === '') {
+      setForm({
+        ...form,
+        error: 'Email and password are mandatory.'
+      })
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, form.email, form.password);
+      navigation.navigate('Welcome');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Welcome' }],
+      });
+    } catch (error) {
+      setForm({
+        ...form,
+        error: error.message,
+      })
+    }
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#3d3d3d' }}>
@@ -66,7 +94,7 @@ export default function Login() {
             <View style={styles.formAction}>
               <TouchableOpacity
                 onPress={() => {
-                  // handle sign-in logic
+                  signIn()
                 }}>
                 <View style={styles.btn}>
                   <Text style={styles.btnText}>Sign in</Text>
