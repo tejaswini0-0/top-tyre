@@ -48,16 +48,16 @@ export default function HomeScreen() {
                     <Text style={styles.welcomeText}>Welcome {user?.email}!{"\n"}{"\n"}What would you like to do today?</Text>
                 </View>
                 <View style={styles.gridContainer}>
-                    <TouchableOpacity style={styles.box1} onPress={() => handleBoxPress('Screen1')}>
+                    <TouchableOpacity style={styles.box1} onPress={() => navigation.navigate('TPKH')}>
                         <Text style={styles.boxText}>{"\n"}Calculate TPKH{"\n"}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.box2} onPress={() => handleBoxPress('Screen2')}>
-                        <Text style={styles.boxText}>{"\n"}Box 2{"\n"}</Text>
+                    <TouchableOpacity style={styles.box2} onPress={() => navigation.navigate('SensorData')}>
+                        <Text style={styles.boxText}>{"\n"}Sensor Data{"\n"}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.box3} onPress={() => handleBoxPress('Screen3')}>
                         <Text style={styles.boxText}>{"\n"}Box 3{"\n"}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.box4} onPress={() => handleBoxPress('Screen4')}>
+                    <TouchableOpacity style={styles.box4} onPress={() => navigation.navigate('Data')}>
                         <Text style={styles.boxText}>{"\n"}Box 4{"\n"}</Text>
                     </TouchableOpacity>
                 </View>
@@ -156,16 +156,16 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         paddingBottom: 20,
-      },
-      signOutButton: {
+    },
+    signOutButton: {
         backgroundColor: '#af905e',
         paddingVertical: 15,
         borderRadius: 10,
         alignItems: 'center',
-      },
-      signOutButtonText: {
+    },
+    signOutButtonText: {
         color: '#000000',
         fontSize: 18,
         fontWeight: '600',
-      },
+    },
 });
