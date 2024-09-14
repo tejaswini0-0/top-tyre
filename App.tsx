@@ -1,9 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Login from './Login.js';
-import Register from './Register.js';
-import Welcome from './Welcome.js';
 import { } from 'firebase/auth';
 import './config/firebase';
 import RootNavigation from './navigation';

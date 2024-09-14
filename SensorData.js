@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { database, auth } from './config/firebase';  // Use the updated firebase.js
+import { database, auth } from './config/firebase';
 import { ref, onValue } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function SensorDataScreen() {
     const [temperature, setTemperature] = useState(null);
@@ -46,8 +47,7 @@ export default function SensorDataScreen() {
 
             fetchTemperature();
 
-            // Set interval to fetch the latest data every minute
-            const interval = setInterval(fetchTemperature, 60000);
+            const interval = setInterval(fetchTemperature, 5000);
 
             return () => clearInterval(interval);
         } else {

@@ -6,7 +6,9 @@ import Register from './Register';
 import Welcome from './Welcome';
 import Data from './Data';
 import SensorData from './SensorData';
-import TPKH from './TPKH';
+import TKPH from './TKPH';
+import TemperatureChart from './TemperatureChart';
+import PressureChart from './PressureChart';
 
 const Stack = createStackNavigator();
 
@@ -30,7 +32,9 @@ function AppNavigator() {
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Data" component={Data}/>
         <Stack.Screen name="SensorData" component={SensorData}/>
-        <Stack.Screen name="TPKH" component={TPKH}/>
+        <Stack.Screen name="TKPH" component={TKPH}/>
+        <Stack.Screen name="TemperatureChart" component={TemperatureChart}/>
+        <Stack.Screen name="PressureChart" component={PressureChart}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

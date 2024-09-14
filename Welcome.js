@@ -7,7 +7,8 @@ import {
     Text,
     TouchableOpacity,
     TextInput,
-} from 'react-native'; import { useAuthentication } from './hooks/useAuthentication';
+} from 'react-native'; 
+import { useAuthentication } from './hooks/useAuthentication';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { auth } from './config/firebase';
 import { signOut } from 'firebase/auth';
@@ -48,14 +49,14 @@ export default function HomeScreen() {
                     <Text style={styles.welcomeText}>Welcome {user?.email}!{"\n"}{"\n"}What would you like to do today?</Text>
                 </View>
                 <View style={styles.gridContainer}>
-                    <TouchableOpacity style={styles.box1} onPress={() => navigation.navigate('TPKH')}>
+                    <TouchableOpacity style={styles.box1} onPress={() => navigation.navigate('TKPH')}>
                         <Text style={styles.boxText}>{"\n"}Calculate TPKH{"\n"}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.box2} onPress={() => navigation.navigate('SensorData')}>
                         <Text style={styles.boxText}>{"\n"}Sensor Data{"\n"}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.box3} onPress={() => handleBoxPress('Screen3')}>
-                        <Text style={styles.boxText}>{"\n"}Box 3{"\n"}</Text>
+                    <TouchableOpacity style={styles.box3} onPress={() => navigation.navigate('TemperatureChart')}>
+                        <Text style={styles.boxText}>{"\n"}Temperature Chart{"\n"}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.box4} onPress={() => navigation.navigate('Data')}>
                         <Text style={styles.boxText}>{"\n"}Box 4{"\n"}</Text>
