@@ -1,9 +1,6 @@
 float baselineVal;
 float psiValfin;
 const int sensorPin = A5;
-const float alpha = 0.95; // Low Pass Filter alpha (0 - 1 )
-const float aRef = 5; // analog reference
-float filteredVal = 512.0; // midway starting point
 float sensorVal;
 float voltage;
 float psiVal;
@@ -16,7 +13,7 @@ void loop() {
 delay(5000);
 sensorVal = (float)analogRead(sensorPin);
 
-voltage = ((sensorVal / 1024.0) * aRef);
+voltage = ((sensorVal / 1024.0) * 5);
 float psi = (37.5939 * voltage) - 13.5338; // y=mx+b
 psiVal = roundoff(psi, 1);
 psiValfin = psiVal - baselineVal;

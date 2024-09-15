@@ -51,7 +51,7 @@ Adafruit_MLX90614 mlx = Adafruit_MLX90614();
 float temperature;
 
 // Pressure data from Arduino
-float pressure = 100;
+float pressure = 0  ;
 
 // Timing variables (update every 5 seconds)
 unsigned long sendDataPrevMillis = 0;
