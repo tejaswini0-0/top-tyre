@@ -23,7 +23,6 @@ export default function App() {
         const cycleDur = parseFloat(cycleDuration);
         const temperature = parseFloat(siteTemp);
 
-        // Calculations
         const grossWeight = unloadedVehicleWeight + payloadWeight;
         const unloadedAxleLoadFront = unloadedVehicleWeight * gvwFront;
         const unloadedAxleLoadRear = unloadedVehicleWeight * gvwRear;
@@ -136,7 +135,7 @@ export default function App() {
                         calculateTKPH()
                     }}>
                     <View style={styles.btn}>
-                        <Text style={styles.btnText}>Calculate TPKH</Text>
+                        <Text style={styles.btnText}>Calculate TKPH</Text>
                     </View>
                 </TouchableOpacity>
             </View>

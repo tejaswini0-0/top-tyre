@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { database, auth } from './config/firebase';
+import { database } from './config/firebase';
 import { ref, onValue } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function SensorDataScreen() {
     const [temperature, setTemperature] = useState(null);
+    const [pressure, setPressure] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -16,26 +16,22 @@ export default function SensorDataScreen() {
         if (user) {
             const userId = user.uid;
             console.log("Logged-in user ID:", userId);
-
-            // Firebase Realtime Database reference to user's temperature data
-            const temperatureRef = ref(database, `UsersData/${userId}/temperature`);
-
-            // Fetch the latest temperature data
-            const fetchTemperature = () => {
-                onValue(temperatureRef, (snapshot) => {
+            const readingsRef = ref(database, `UsersData/${userId}/readings`);
+            const fetchReadings = () => {
+                onValue(readingsRef, (snapshot) => {
                     const data = snapshot.val();
-                    console.log("Fetched data from Firebase:", data);  // Debugging log to verify data
+                    console.log("Fetched data from Firebase:", data);
 
                     if (data) {
-                        // Retrieve and sort the timestamps in descending order
                         const timestamps = Object.keys(data);
                         if (timestamps.length > 0) {
-                            const sortedTimestamps = timestamps.sort((a, b) => b - a);  // Sort by latest timestamp
-                            const mostRecentTimestamp = sortedTimestamps[0];  // Get the latest timestamp
-                            const mostRecentEntry = data[mostRecentTimestamp];  // Retrieve the latest entry
-                            setTemperature(mostRecentEntry.temperature);  // Set the latest temperature value
+                            const sortedTimestamps = timestamps.sort((a, b) => b - a);
+                            const mostRecentTimestamp = sortedTimestamps[0];
+                            const mostRecentEntry = data[mostRecentTimestamp];
+                            setTemperature(mostRecentEntry.temperature);
+                            setPressure(mostRecentEntry.pressure);
                         } else {
-                            setError("No temperature data available.");
+                            setError("No readings data available.");
                         }
                     } else {
                         setError("No data found for this user.");
@@ -45,9 +41,9 @@ export default function SensorDataScreen() {
                 });
             };
 
-            fetchTemperature();
+            fetchReadings();
 
-            const interval = setInterval(fetchTemperature, 5000);
+            const interval = setInterval(fetchReadings, 5000);
 
             return () => clearInterval(interval);
         } else {
@@ -57,14 +53,20 @@ export default function SensorDataScreen() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.header}>Latest Temperature Reading</Text>
+            <Text style={styles.header}>Latest Sensor Readings</Text>
             <View style={styles.table}>
-                <View style={styles.row}>
-                    <Text style={styles.cellHeader}>Temperature</Text>
-                </View>
+                <Text style={styles.tableHeader}>Temperature</Text>
                 <View style={styles.row}>
                     <Text style={styles.cell}>
                         {temperature ? `${temperature}°C` : error ? error : 'No data'}
+                    </Text>
+                </View>
+            </View>
+            <View style={styles.table}>
+                <Text style={styles.tableHeader}>Pressure</Text>
+                <View style={styles.row}>
+                    <Text style={styles.cell}>
+                        {pressure ? `${pressure} psi` : error ? error : 'No data'}
                     </Text>
                 </View>
             </View>
@@ -90,16 +92,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#af905e',
         padding: 10,
         borderRadius: 10,
+        marginBottom: 20,
+    },
+    tableHeader: {
+        fontWeight: '700',
+        color: '#000000',
+        fontSize: 18,
+        textAlign: 'center',
+        marginBottom: 10,
     },
     row: {
         flexDirection: 'row',
         justifyContent: 'center',
         paddingVertical: 10,
-    },
-    cellHeader: {
-        fontWeight: '700',
-        color: '#000000',
-        fontSize: 18,
     },
     cell: {
         color: '#000000',

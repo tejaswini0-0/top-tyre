@@ -60,10 +60,10 @@ export default function Register() {
               source={logo}
             />
             <Text style={styles.title}>
-              <Text style={{ color: '#af905e' }}>CantThinkOfName</Text>
+              <Text style={{ color: '#af905e' }}>Two Tyred</Text>
             </Text>
             <Text style={styles.subtitle}>
-              Add off one description
+              Tyrents looking to leave a lasting treadmark
             </Text>
           </View>
           <View style={styles.form}>

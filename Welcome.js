@@ -42,7 +42,7 @@ export default function HomeScreen() {
                         source={logo}
                     />
                     <Text style={styles.title}>
-                        <Text style={{ color: '#af905e' }}>CantThinkOfName</Text>
+                        <Text style={{ color: '#af905e' }}>Two Tyred</Text>
                     </Text>
                 </View>
                 <View style={styles.welcome}>
@@ -50,16 +50,16 @@ export default function HomeScreen() {
                 </View>
                 <View style={styles.gridContainer}>
                     <TouchableOpacity style={styles.box1} onPress={() => navigation.navigate('TKPH')}>
-                        <Text style={styles.boxText}>{"\n"}Calculate TPKH{"\n"}</Text>
+                        <Text style={styles.boxText}>{"\n"}Calculate TKPH{"\n"}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.box2} onPress={() => navigation.navigate('SensorData')}>
                         <Text style={styles.boxText}>{"\n"}Sensor Data{"\n"}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.box3} onPress={() => navigation.navigate('TemperatureChart')}>
-                        <Text style={styles.boxText}>{"\n"}Temperature Chart{"\n"}</Text>
+                    <TouchableOpacity style={styles.box3} onPress={() => navigation.navigate('SensorCharts')}>
+                        <Text style={styles.boxText}>{"\n"}Sensor Charts{"\n"}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.box4} onPress={() => navigation.navigate('Data')}>
-                        <Text style={styles.boxText}>{"\n"}Box 4{"\n"}</Text>
+                    <TouchableOpacity style={styles.box4} onPress={() => navigation.navigate('AboutProject')}>
+                        <Text style={styles.boxText}>{"\n"}About Project{"\n"}</Text>
                     </TouchableOpacity>
                 </View>
 
